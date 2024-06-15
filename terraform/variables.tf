@@ -19,3 +19,7 @@ variable "common_tags" {
 variable "zone_name" {
   default = "devopskk.online"
 }
+
+variable "app_version" {
+  
+}

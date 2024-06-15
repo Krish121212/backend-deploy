@@ -16,13 +16,37 @@ pipeline {
         nexusUrl = 'nexus.devopskk.online:8081' //nexus runs on port 8081 jenkins on 8080
     }
     stages {
-        stage('RPrint the version') {
+        stage('Print the version') {
             steps {
                 script{ //grovy script so code need to be in script {}
                 echo "Application version: ${params.appVersion}"
                 }
             }
-        }  
+        }
+        stage('Init') {
+            steps {
+                sh """
+                    cd terraform
+                    terraform init
+                """    
+            }
+        }
+        stage('plan') {
+            steps {
+                sh """
+                    cd terraform
+                    terraform plan -var="app_version=${params.appVersion}"
+                """    
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh """
+                    cd terraform
+                    terraform plan
+                """    
+            }
+        } 
     }
     post {//we have many posts,below are 3 among them. so posts run after build.used for trigging mails about status etc
         always { 
