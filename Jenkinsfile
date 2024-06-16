@@ -46,7 +46,15 @@ pipeline {
                     terraform plan
                 """    
             }
-        } 
+        }
+        stage('Deploy') {
+            steps {
+                sh """
+                    cd terraform
+                    terraform plan
+                """    
+            }
+        }
     }
     post {//we have many posts,below are 3 among them. so posts run after build.used for trigging mails about status etc
         always { 
