@@ -51,7 +51,7 @@ pipeline {
             steps {
                 sh """
                     cd terraform
-                    terraform plan
+                    terraform apply -auto-approve
                 """    
             }
         }
